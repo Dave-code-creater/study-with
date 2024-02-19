@@ -1,4 +1,4 @@
-import posts from './data/data.js';
+import posts from './data/course';
 
 export default function card() {
 	return (

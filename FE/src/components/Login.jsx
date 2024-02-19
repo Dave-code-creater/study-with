@@ -1,15 +1,34 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-const Login = (props) => {
+async function loginUser(credentials) {
+	return fetch('http://localhost:8000/login', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+		},
+		body: JSON.stringify(credentials),
+	}).then((data) => data.json());
+}
+
+const Login = ({ setToken }) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
+	const navigate = useNavigate();
 
-	const handleSubmit = (e) => {
+	const handleSubmit = async (e) => {
 		e.preventDefault();
-		console.log('username:', username);
-		console.log('password:', password);
+		const token = await loginUser({
+			username,
+			password,
+		});
+		setToken(token);
 	};
+
+	navigate('/homepage');
+
 	return (
 		<div className='min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8'>
 			<div className='sm:mx-auto sm:w-full sm:max-w-md'>
@@ -18,7 +37,7 @@ const Login = (props) => {
 				</h2>
 				<p className='mt-2 text-center text-sm text-gray-600 max-w'>
 					<a
-						onClick={() => props.navigate('/signup')}
+						onClick={() => PropTypes.navigate('/signup')}
 						className='font-medium text-blue-600 hover:text-blue-500'
 					>
 						create an account
@@ -167,6 +186,10 @@ const Login = (props) => {
 			</div>
 		</div>
 	);
+};
+
+Login.propTypes = {
+	setToken: PropTypes.func.isRequired,
 };
 
 export default Login;
