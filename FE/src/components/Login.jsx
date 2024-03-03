@@ -1,33 +1,16 @@
-import React, { Component } from 'react';
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-async function loginUser(credentials) {
-	return fetch('http://localhost:8000/login', {
-		method: 'POST',
-		headers: {
-			'Content-Type': 'application/json',
-		},
-		body: JSON.stringify(credentials),
-	}).then((data) => data.json());
-}
-
-const Login = ({ setToken }) => {
+const Login = (props) => {
 	const [username, setUsername] = useState('');
 	const [password, setPassword] = useState('');
-	const navigate = useNavigate();
 
 	const handleSubmit = async (e) => {
 		e.preventDefault();
-		const token = await loginUser({
-			username,
-			password,
-		});
-		setToken(token);
+		console.log('username:', username);
+		console.log('password:', password);
 	};
-
-	navigate('/homepage');
 
 	return (
 		<div className='min-h-screen bg-gray-100 flex flex-col justify-center py-12 sm:px-6 lg:px-8'>
@@ -37,7 +20,7 @@ const Login = ({ setToken }) => {
 				</h2>
 				<p className='mt-2 text-center text-sm text-gray-600 max-w'>
 					<a
-						onClick={() => PropTypes.navigate('/signup')}
+						onClick={() => props.onFormSwitch('/signup')}
 						className='font-medium text-blue-600 hover:text-blue-500'
 					>
 						create an account
@@ -53,7 +36,7 @@ const Login = ({ setToken }) => {
 								htmlFor='email'
 								className='block text-sm font-medium text-gray-700'
 							>
-								Email address
+								Username
 							</label>
 							<div className='mt-1'>
 								<input
@@ -122,12 +105,12 @@ const Login = ({ setToken }) => {
 							</div>
 						</div>
 
-						<div>
+						<div className='mt-6'>
 							<button
 								type='submit'
-								className='group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
+								className='w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500'
 							>
-								Sign in
+								Sign In
 							</button>
 						</div>
 					</form>
@@ -186,10 +169,6 @@ const Login = ({ setToken }) => {
 			</div>
 		</div>
 	);
-};
-
-Login.propTypes = {
-	setToken: PropTypes.func.isRequired,
 };
 
 export default Login;

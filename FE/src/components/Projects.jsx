@@ -3,16 +3,16 @@ import people from './data/project.js';
 
 export default function Example() {
 	return (
-		<div className='bg-white flex flex-col h-screen'>
+		<div className='container mx-auto px-8 bg-white flex flex-col h-screen'>
 			<div className='bg-white py-12'>
 				<h1 className='text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl'>
 					Explore a thousand of projects and pathway to success
 				</h1>
 			</div>
-			<div className='container mx-auto px-4'>
+			<div className='container mx-auto px-5 pb-8'>
 				<ul
 					role='list'
-					className='gap-4 divide-y divide-gray-100'
+					className='gap-4 divide-y divide-gray-100 pb-6'
 				>
 					{people.map((person) => (
 						<li

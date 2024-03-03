@@ -1,4 +1,7 @@
-export default function Example() {
+import React, { useState } from 'react';
+import Login from './Login';
+
+export default function Homepage() {
 	return (
 		<div className='bg-white py-24 sm:py-32'>
 			<div className='mx-auto max-w-7xl px-6 lg:px-8'>

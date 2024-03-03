@@ -11,40 +11,37 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import DefaultPage from './components/DefaultPage';
 import './App.css';
-import useToken from './components/userToken';
 
 function App() {
-	const { token, setToken } = useToken();
-
 	return (
 		<div>
 			<NavBar />
 			<Routes>
 				{/* Public routes */}
 				<Route
-					path=''
+					path='/'
 					element={<DefaultPage />}
 				/>
 				<Route
-					path='login'
-					element={<Login setToken={setToken} />}
+					path='/login'
+					element={<Login />}
 				/>
 				<Route
-					path='signup'
-					element={<SignUp setToken={setToken} />}
+					path='/signup'
+					element={<SignUp />}
 				/>
 				<Route
-					path='projects'
+					path='/projects'
 					element={<Projects />}
 				/>
 				<Route
-					path='course'
+					path='/course'
 					element={<Course />}
 				/>
 
 				{/* Private route */}
 				<Route
-					path='homepage'
+					path='/homepage'
 					element={<Homepage />}
 				/>
 			</Routes>
