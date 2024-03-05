@@ -11,11 +11,17 @@ import SignUp from './components/SignUp';
 import Login from './components/Login';
 import DefaultPage from './components/DefaultPage';
 import './App.css';
+import axios from 'axios';
+import toast, { Toaster } from 'react-hot-toast';
+
+axios.defaults.baseURL = 'http://localhost:8000';
+axios.defaults.withCredentials = true;
 
 function App() {
 	return (
 		<div>
 			<NavBar />
+			<Toaster position='bottom-right' toastOptions={{duration: 2000}} />
 			<Routes>
 				{/* Public routes */}
 				<Route
