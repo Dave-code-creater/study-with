@@ -1,22 +1,25 @@
 const express = require('express');
 const cors = require('cors');
 const dotenv = require('dotenv').config();
-const {mongoose} = require('mongoose');
+const { mongoose } = require('mongoose');
 const app = express();
 
 // database connection
-mongoose.connect(process.env.MONGO_URL).then(() => {
-	  console.log('Database connected');
-}).catch((err) => {
-	  console.log('Database connection error: ', err.message);
-})
+mongoose
+	.connect(process.env.MONGO_URL)
+	.then(() => {
+		console.log('Database connected');
+	})
+	.catch((err) => {
+		console.log('Database connection error: ', err.message);
+	});
 
 // Middleware
 app.use(express.json());
 
 app.use('/', require('./routes/authRoutes'));
- 
+
 const port = 8000;
 app.listen(port, () => {
-  console.log(`Server is running on port: ${port}`);
+	console.log(`Server is running on port: ${port}`);
 });

@@ -12,7 +12,9 @@ import Login from './components/Login';
 import DefaultPage from './components/DefaultPage';
 import './App.css';
 import axios from 'axios';
-import toast, { Toaster } from 'react-hot-toast';
+
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 axios.defaults.baseURL = 'http://localhost:8000';
 axios.defaults.withCredentials = true;
@@ -21,7 +23,7 @@ function App() {
 	return (
 		<div>
 			<NavBar />
-			<Toaster position='bottom-right' toastOptions={{duration: 2000}} />
+			<ToastContainer position='top-center' />
 			<Routes>
 				{/* Public routes */}
 				<Route
