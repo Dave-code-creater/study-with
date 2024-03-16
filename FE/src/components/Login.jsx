@@ -4,31 +4,19 @@ import axios from 'axios'
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNavigate } from 'react-router-dom'
+import { useDispatch, useSelector } from "react-redux"
+import { login } from "../redux/features/authSlice"
 
 export default function Login() {
 	const navigate = useNavigate()
+	const dispatch = useDispatch();
 	const loginUser = (e) => {
-		e.preventDefault()
+		e.preventDefault();
 		const { email, password } = data;
-		try {
-			const response = axios.post('/login', { email, password }).then((response) => {
-				console.log('response', response)
-				if (response.data.message === 'User does not exist') {
-					toast.error(response.data.message)
-				}
-				else {
-					setData({})
-					toast.success('User logged in successfully')
-					navigate('/homepage')
-				}
-			}
-			)
 
-		}
-		catch (error) {
-			console.log('error', error)
-		}
-	}
+		dispatch(login({ email, password, navigate, toast }))
+
+	};
 
 	const [data, setData] = useState({
 		name: '',
@@ -72,7 +60,7 @@ export default function Login() {
 
 						<div>
 							<div className="flex items-center justify-between">
-								<label htmlFor="password" className="block text-sm font-medium leading-6 text-gray-900">
+								<label htmlFor="password" className="block text-sm font-medium </label>leading-6 text-gray-900">
 									Password
 								</label>
 								<div className="text-sm">
