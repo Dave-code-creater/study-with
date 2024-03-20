@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Website_Icon from './images/Website_Icon.png';
 
 export default function Register() {
 	const navigate = useNavigate();
@@ -37,11 +38,11 @@ export default function Register() {
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<img
 						className="mx-auto h-10 w-auto"
-						src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-						alt="Your Company"
+						src={Website_Icon}
+						alt="Study with me Icon"
 					/>
 					<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
-						Sign in to your account
+						Sign Up to your account
 					</h2>
 				</div>
 
@@ -118,13 +119,6 @@ export default function Register() {
 							<ToastContainer position='top-left' />
 						</div>
 					</form>
-
-					<p className="mt-10 text-center text-sm text-gray-500">
-						Not a member?{' '}
-						<a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-							Start a 14 day free trial
-						</a>
-					</p>
 				</div>
 			</div>
 		</>

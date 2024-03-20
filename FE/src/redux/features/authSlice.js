@@ -3,14 +3,15 @@ import * as api from '../api';
 
 export const login = createAsyncThunk(
 	'auth/login',
-	async (email, password, navigate, toast) => {
-		const response = await api.loginUser({ email, password });
-		if (response.data.message) {
-			toast.error(response.data.message);
-		} else {
+	async ({ data, navigate, toast }, { rejectWithValue }) => {
+		try {
+			const response = await api.loginUser(data);
+			toast.success('Login successful');
 			navigate('/homepage');
+		} catch (err) {
+			console.error('Error during login:', err.message);
+			return rejectWithValue(err.response.data);
 		}
-		return response;
 	}
 );
 
@@ -30,14 +31,11 @@ const authSlice = createSlice({
 			})
 			.addCase(login.fulfilled, (state, action) => {
 				state.status = 'succeeded';
-				localStorage.setItem(
-					'profile',
-					JSON.stringify({ ...action.payload.data })
-				);
+				state.user = action.payload;
 			})
 			.addCase(login.rejected, (state, action) => {
 				state.status = 'failed';
-				state.error = action.error.message;
+				state.error = action.payload.message;
 			});
 	},
 });

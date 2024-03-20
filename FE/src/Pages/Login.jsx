@@ -1,25 +1,30 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useState } from 'react'
-import axios from 'axios'
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
+import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
 import { login } from "../redux/features/authSlice"
+import Website_Icon from './images/Website_Icon.png'
+
 
 export default function Login() {
+
+	const { loading, error } = useSelector((state) => state.auth);
 	const navigate = useNavigate()
 	const dispatch = useDispatch();
 	const loginUser = (e) => {
 		e.preventDefault();
 		const { email, password } = data;
-
-		dispatch(login({ email, password, navigate, toast }))
-
+		dispatch(login({ data, navigate, toast }));
 	};
 
+
+	useEffect(() => {
+		error && toast.error(error);
+	}, [error]);
+
 	const [data, setData] = useState({
-		name: '',
+		email: '',
 		password: ''
 	})
 
@@ -30,8 +35,8 @@ export default function Login() {
 				<div className="sm:mx-auto sm:w-full sm:max-w-sm">
 					<img
 						className="mx-auto h-10 w-auto"
-						src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-						alt="Your Company"
+						src={Website_Icon}
+						alt="Study with me Icon"
 					/>
 					<h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-gray-900">
 						Sign in to your account
@@ -89,18 +94,23 @@ export default function Login() {
 								onClick={loginUser}
 								className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 							>
-								Sign in
+								{loading ? (
+									<span
+										size="sm"
+										role="status"
+										tag={"span"}
+										className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'
+									>
+										Loading...
+									</span>
+								) : (
+									"Sign in"
+								)}
 							</button>
-							<ToastContainer position='top-left' />
-						</div>
-					</form>
 
-					<p className="mt-10 text-center text-sm text-gray-500">
-						Not a member?{' '}
-						<a href="#" className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500">
-							Start a 14 day free trial
-						</a>
-					</p>
+						</div>
+
+					</form>
 				</div>
 			</div>
 		</>

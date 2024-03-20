@@ -1,3 +1,6 @@
+const bcrypt = require('bcrypt');
+const jwt = require('jsonwebtoken');
+
 const User = require('../models/user');
 const { hashPassword, comparePassword } = require('../helpers/auth');
 
@@ -44,20 +47,31 @@ const loginUser = async (req, res) => {
 		const { email, password } = req.body;
 		// Check if body is emtpy
 		if (!password || !email) {
-			return res.json({ message: 'Please fill in all fields' });
+			return res
+				.status(404)
+				.json({ message: 'Please fill in all fields' });
 		}
 		// Check if user exists
 		const user = await User.findOne({ email });
 		if (!user) {
-			return res.json({ message: 'User does not exist' });
+			return res.status(404).json({ message: 'User does not exist' });
 		}
 		// Compare password
 		const match = await comparePassword(password, user.password);
 		if (!match) {
-			return res.json({ message: 'Invalid credentials' });
+			return res.status(404).json({ message: 'Invalid credentials' });
 		}
-		// Send user to client
-		res.json(user);
+
+		// Create token
+		const token = jwt.sign(
+			{ _id: user._id, role: user.role },
+			process.env.JWT_SECRET,
+			{
+				expiresIn: '7d',
+			}
+		);
+
+		res.json(user, token);
 	} catch (error) {
 		res.json({ message: error.message });
 	}

@@ -8,7 +8,7 @@ import Projects from './components/Projects';
 import Course from './components/Course';
 import Homepage from './components/Homepage';
 import SignUp from './components/SignUp';
-import Login from './components/Login';
+import Login from './Pages/Login';
 import DefaultPage from './components/DefaultPage';
 import './App.css';
 import axios from 'axios';

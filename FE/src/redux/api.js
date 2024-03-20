@@ -1,15 +1,10 @@
 import axios from 'axios';
 
-const api = axios.create({
+const API = axios.create({
 	baseURL: 'http://localhost:8000',
 	withCredentials: true,
 });
 
-export const loginUser = async (data) => {
-	try {
-		const response = await api.post('/login', data);
-		return response;
-	} catch (error) {
-		return error;
-	}
-};
+// Ensure your loginUser function sends only the email and password fields
+export const loginUser = async ({ email, password }) =>
+	API.post('/login', { email, password });
