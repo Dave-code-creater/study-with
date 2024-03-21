@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import Login from '../Pages/Login';
+import Login from './Login';
 
 export default function Homepage() {
 	return (

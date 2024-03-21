@@ -15,6 +15,20 @@ export const login = createAsyncThunk(
 	}
 );
 
+export const signup = createAsyncThunk(
+	'auth/signup',
+	async ({ data, navigate, toast }, { rejectWithValue }) => {
+		try {
+			const response = await api.registerUser(data);
+			toast.success('Sign Up successful');
+			navigate('/homepage');
+		} catch (err) {
+			console.error('Error during login:', err.message);
+			return rejectWithValue(err.response.data);
+		}
+	}
+);
+
 const authSlice = createSlice({
 	name: 'auth',
 	initialState: {
@@ -37,6 +51,17 @@ const authSlice = createSlice({
 				state.status = 'failed';
 				state.error = action.payload.message;
 			});
+		builder.addCase(signup.pending, (state, action) => {
+			state.status = 'loading';
+		});
+		builder.addCase(signup.fulfilled, (state, action) => {
+			state.status = 'succeeded';
+			state.user = action.payload;
+		});
+		builder.addCase(signup.rejected, (state, action) => {
+			state.status = 'failed';
+			state.error = action.payload.message;
+		});
 	},
 });
 

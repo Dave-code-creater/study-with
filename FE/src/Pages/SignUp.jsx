@@ -1,36 +1,30 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useSelector, useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { ToastContainer, toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import Website_Icon from './images/Website_Icon.png';
+import Website_Icon from '../images/Website_Icon.png';
+import { signup } from '../redux/features/authSlice';
 
 export default function Register() {
+	const { loading, error } = useSelector((state) => state.auth);
+	const dispatch = useDispatch();
 	const navigate = useNavigate();
-
-	const registerUser = async (e) => {
-		e.preventDefault();
-		const { name, email, password } = data;
-		try {
-			const response = await axios.post('/signup', { name, email, password });
-			console.log('response', response);
-			if (response.data.message) {
-				toast.error(response.data.message);
-			} else {
-				setData({});
-				toast.success('User registered successfully');
-				navigate('/homepage'); // Redirect to login page after successful registration
-			}
-		} catch (error) {
-			console.log('error', error);
-		}
-	};
-
 	const [data, setData] = useState({
 		name: '',
 		email: '',
 		password: ''
 	});
+
+	const registerUser = (e) => {
+		e.preventDefault();
+		dispatch(signup({ data, navigate, toast }));
+	};
+
+	useEffect(() => {
+		error && toast.error(error);
+	}, [error]);
 
 	return (
 		<>
@@ -50,7 +44,7 @@ export default function Register() {
 					<form className="space-y-6" onSubmit={registerUser}>
 						<div>
 							<label htmlFor="name" className="block text-sm font-medium leading-6 text-gray-900">
-								name
+								Name
 							</label>
 							<div className="mt-2">
 								<input
@@ -111,12 +105,16 @@ export default function Register() {
 						<div>
 							<button
 								type="submit"
-								onClick={registerUser}
 								className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 							>
-								Sign in
+								{loading ? (
+									<span className='flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600'>
+										Loading...
+									</span>
+								) : (
+									"Sign up"
+								)}
 							</button>
-							<ToastContainer position='top-left' />
 						</div>
 					</form>
 				</div>

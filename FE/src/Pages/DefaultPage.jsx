@@ -3,7 +3,7 @@ import {
 	ServerIcon,
 	BookOpenIcon,
 } from '@heroicons/react/20/solid';
-import source from './images/source.png';
+import source from '../images/source.png';
 
 export default function Example() {
 	return (

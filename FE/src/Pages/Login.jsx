@@ -4,7 +4,8 @@ import { toast } from "react-toastify";
 import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from "react-redux"
 import { login } from "../redux/features/authSlice"
-import Website_Icon from './images/Website_Icon.png'
+import { GoogleOAuthProvider } from '@react-oauth/google';
+import Website_Icon from '../images/Website_Icon.png';
 
 
 export default function Login() {
@@ -91,7 +92,6 @@ export default function Login() {
 						<div>
 							<button
 								type="submit"
-								onClick={loginUser}
 								className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
 							>
 								{loading ? (
@@ -107,7 +107,26 @@ export default function Login() {
 									"Sign in"
 								)}
 							</button>
+							<span />
+							<GoogleOAuthProvider
+								clientId="YOUR_GOOGLE
+								_BUTTON_CLIENT_ID"
+								redirectUri="http://localhost:3000"
+								scope="email profile openid"
+								render={({ onClick }) => (
+									<button
+										type="button"
+										onClick={onClick}
+										className="flex w-full justify-center rounded-md bg-red-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600"
+									>
+										<icon className="fab fa-google">
+											Login with Google
+										</icon>
 
+
+									</button>
+								)}
+							/>
 						</div>
 
 					</form>
