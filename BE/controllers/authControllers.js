@@ -1,8 +1,11 @@
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
-const User = require('../models/user');
+const User = require('../models/users');
 const Courses = require('../models/courses');
+const News = require('../models/news');
+const Projects = require('../models/projects');
+
 const { hashPassword, comparePassword } = require('../helpers/auth');
 
 const test = (req, res) => {
@@ -82,6 +85,24 @@ const coursesInformation = async (req, res) => {
 	try {
 		const course = await Courses.find({});
 		res.json(course);
+	} catch (error) {
+		res.json({ message: error.message });
+	}
+};
+
+const newsInformation = async (req, res) => {
+	try {
+		const news = await News.find({});
+		res.json(news);
+	} catch (error) {
+		res.json({ message: error.message });
+	}
+};
+
+const projectsInformation = async (req, res) => {
+	try {
+		const projects = await Projects.find({});
+		res.json(projects);
 	} catch (error) {
 		res.json({ message: error.message });
 	}

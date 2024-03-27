@@ -6,10 +6,10 @@ import NavBar from './components/Header';
 import Footer from './components/Footer';
 import Projects from './components/Projects';
 import Course from './components/Course';
-import Homepage from './Pages/Homepage';
-import SignUp from './Pages/SignUp';
-import Login from './Pages/Login';
-import DefaultPage from './Pages/DefaultPage';
+import Homepage from './pages/Homepage';
+import SignUp from './pages/SignUp';
+import Login from './pages/Login';
+import DefaultPage from './pages/DefaultPage';
 import './App.css';
 import axios from 'axios';
 
