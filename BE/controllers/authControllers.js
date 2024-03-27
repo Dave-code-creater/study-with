@@ -2,6 +2,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 
 const User = require('../models/user');
+const Courses = require('../models/courses');
 const { hashPassword, comparePassword } = require('../helpers/auth');
 
 const test = (req, res) => {
@@ -77,8 +78,17 @@ const loginUser = async (req, res) => {
 	}
 };
 
+const coursesInformation = async (req, res) => {
+	try {
+		const course = await Courses.find({});
+		res.json(course);
+	} catch (error) {
+		res.json({ message: error.message });
+	}
+};
+
 module.exports = {
-	test,
+	coursesInformation,
 	registerUser,
 	loginUser,
 };

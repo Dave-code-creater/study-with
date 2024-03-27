@@ -2,9 +2,9 @@ const express = require('express');
 const router = express.Router();
 const cors = require('cors');
 const {
-	test,
 	registerUser,
 	loginUser,
+	coursesInformation,
 } = require('../controllers/authControllers');
 
 // Path: routes/authRoutes.js
@@ -17,7 +17,5 @@ router.use(
 
 router.post('/signup', registerUser);
 router.post('/login', loginUser);
-
-router.get('/', test);
-
+router.get('/information', coursesInformation);
 module.exports = router;

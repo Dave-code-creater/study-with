@@ -4,7 +4,7 @@ from hashlib import sha256
 
 # Connect to MongoDB
 client = pymongo.MongoClient("mongodb+srv://dat981dat:~SHPnG_EgWr3_za@cluster0.zxwedw3.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0")
-db = client["65e7524f24754937097b0ab5"]  # Change "your_database_name" to your actual database name
+db = client["test"]  # Change "your_database_name" to your actual database name
 collection = db["users"]
 
 # Function to generate hashed password

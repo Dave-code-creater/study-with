@@ -11,3 +11,5 @@ export const loginUser = async ({ email, password }) =>
 
 export const registerUser = async ({ name, email, password }) =>
 	API.post('/signup', { name, email, password });
+
+export const coursesInformation = async () => API.get('/information');
